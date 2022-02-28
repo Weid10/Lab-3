@@ -5,15 +5,15 @@ using namespace std;
 int main()
 {
     // test
-    std::vector<int> deg = { 5,3,1};
-    std::vector<double> co = { 5,3,1};
+    std::vector<int> deg = {1,0};
+    std::vector<double> co = {1,1};
 
 
-    Poly hey;
+    Poly hey(deg,co), aaa;
 
     hey.toString();
-    hey.addMono(0,6);
-    hey.toString();
+    hey.duplicate(aaa);
+    aaa.toString();
 
 
 

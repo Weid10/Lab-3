@@ -26,6 +26,7 @@ Poly::~Poly()
 		delete curr;
 		curr = next;
 	}
+	head = new PolyNode(-1, 0, NULL); // ???
 }
 
 void Poly::addMono(int i, double c)
@@ -72,25 +73,93 @@ void Poly::addPoly(const Poly& p)
 
 void Poly::multiplyMono(int i, double c)
 {
-	PolyNode* curr = head->next;
-	PolyNode* prev = head;
 
-	while (curr != NULL) {
+	if (c == 0) {
 
-		
-
-		curr = curr->next;
+		PolyNode* next;
+		while (head->next != NULL) {
+			next = head->next;
+			delete head;
+			head = next;
+		}
+		return;
 	}
+
+	PolyNode* ref = head;
+	ref = ref->next;
+
+	while (ref != NULL) {
+		ref->deg += i;
+		ref->coeff *= c;
+
+		ref = ref->next;
+	}
+
 }
 
 void Poly::multiplyPoly(const Poly& p)
 {
-	// TODO
+
+
 }
 
 void Poly::duplicate(Poly& outputPoly)
-{
-	// TODO
+{                                          //why can't I create a function with NULL
+
+    PolyNode* ref_this;
+    ref_this = head;
+
+
+
+    PolyNode* ref_out;
+    ref_out = outputPoly.head;
+
+
+	// clean up outputPoly
+	PolyNode* next;
+	while (ref_out->next != NULL) {
+		next = ref_out->next;
+		delete ref_out;
+		head = next;
+	}
+
+	
+
+    if(ref_this->next == NULL){  // create zero list
+        ref_out->next = NULL;
+        return;
+    }
+    ref_out->next = new PolyNode(-1, 0, NULL); //create the next node in advance
+    ref_out = ref_out->next;
+    ref_this = ref_this->next;
+
+    while(ref_this!= NULL){
+        ref_out->deg = ref_this->deg;
+        ref_out->coeff = ref_this->coeff;
+        ref_out->next = new PolyNode(-1, 0, NULL);
+
+        if(ref_this->next == NULL){
+            ref_out->next = NULL;
+            return;
+        }
+
+        ref_out = ref_out->next;
+        ref_this = ref_this->next;
+
+    }
+
+
+	/*
+	
+	while (ref_this->next != NULL) {
+
+		ref_out->next = new PolyNode(ref_this->deg, ref_this->coeff, NULL);
+
+		ref_this = ref_this->next;
+		ref_out = ref_out->next;
+	}
+
+	*/
 }
 
 int Poly::getDegree()
