@@ -99,7 +99,15 @@ void Poly::multiplyMono(int i, double c)
 
 void Poly::multiplyPoly(const Poly& p)
 {
+	// cycle through p
+	PolyNode* p_curr = p.head->next;
+	while (p_curr != NULL) {
 
+
+
+
+		p_curr = p_curr->next;
+	}
 
 }
 
@@ -171,14 +179,37 @@ int Poly::getDegree()
 
 int Poly::getTermsNo()
 {
-	// TODO
-	return -1;//change this after completing this function
+	int num = 0;
+	
+	// cycle through each mono
+	PolyNode* curr = head->next;
+	while (curr != NULL) {
+		if (curr->coeff != 0) num++;
+		curr = curr->next;
+	}
+	return num;
 }
 
 double Poly::evaluate(double x)
 {
-	// TODO
-	return -1;//change this after completing this function
+	double poly = 0;
+
+	// cycle through each mono
+	PolyNode* curr = head->next;
+	while (curr != NULL) {
+		double mono = 1;
+
+		// multiply
+		mono *= curr->coeff;
+		for (int a = 0; a < curr->deg; a++) {
+			mono *= x;
+		}
+
+		poly += mono;
+		curr = curr->next;
+	}
+
+	return poly;
 }
 
 std::string Poly::toString()

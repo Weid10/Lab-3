@@ -5,17 +5,17 @@ using namespace std;
 int main()
 {
     // test
-    std::vector<int> deg = {1,0};
-    std::vector<double> co = {1,1};
+    std::vector<int> deg = {2,1,0};
+    std::vector<double> co = {1,1,1};
 
 
     Poly hey(deg,co), aaa;
 
     hey.toString();
-    hey.duplicate(aaa);
+    //hey.evaluate(1);
     aaa.toString();
 
-
+    std::cout << hey.evaluate(3);
 
 	int max_degree = 1000;
 	double max_coeff = 100;
